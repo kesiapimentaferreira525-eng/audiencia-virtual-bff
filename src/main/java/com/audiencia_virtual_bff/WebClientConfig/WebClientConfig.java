@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class WebClientConfig {
 
-    @Value("${audiencia.service.url:http://localhost:8081}")
+    @Value("${servico.audiencias.url:http://localhost:8081}")
     private String audienciaServiceUrl;
 
     @Bean
