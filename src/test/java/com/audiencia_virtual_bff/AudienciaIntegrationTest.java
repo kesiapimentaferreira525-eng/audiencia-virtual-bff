@@ -74,12 +74,36 @@ class AudienciaIntegrationTest {
 
         client.post()
                 .uri("/api/v1/bff/audiencias")
-                .bodyValue("{\"nome\":\"Audiencia criada\"}")
+                .bodyValue("""
+                        {
+                          "agendaId": 1,
+                          "email": "maria.silva@exemplo.com",
+                          "dataAudiencia": "2026-10-10T14:00:00",
+                          "siteAgendamento": "Microsoft Teams"
+                        }
+                        """)
                 .header("Content-Type", "application/json")
                 .exchange()
                 .expectStatus().isCreated()
                 .expectBody()
                 .jsonPath("$.id").isEqualTo(2)
                 .jsonPath("$.nome").isEqualTo("Audiencia criada");
+    }
+
+    @Test
+    void deveRejeitarCriacaoComCamposObrigatoriosInvalidos() {
+        client.post()
+                .uri("/api/v1/bff/audiencias")
+                .bodyValue("""
+                        {
+                          "agendaId": 1,
+                          "email": "email-invalido",
+                          "dataAudiencia": null,
+                          "siteAgendamento": ""
+                        }
+                        """)
+                .header("Content-Type", "application/json")
+                .exchange()
+                .expectStatus().isBadRequest();
     }
 }

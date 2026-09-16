@@ -1,6 +1,7 @@
 package com.audiencia_virtual_bff.BffAudienciaController;
 
 import com.audiencia_virtual_bff.BffAudienciaService.BffAudienciaService;
+import com.audiencia_virtual_bff.BffAudienciaController.dto.AudienciaRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,6 +12,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
+import java.time.LocalDateTime;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -61,7 +63,14 @@ class BffAudienciaControllerTest {
         client.post()
                 .uri("/api/v1/bff/audiencias")
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(Map.of("nome", "Nova audiencia"))
+                .bodyValue("""
+                        {
+                          "agendaId": 1,
+                          "email": "maria.silva@exemplo.com",
+                          "dataAudiencia": "2026-10-10T14:00:00",
+                          "siteAgendamento": "Microsoft Teams"
+                        }
+                        """)
                 .exchange()
                 .expectStatus().isCreated()
                 .expectBody()

@@ -1,5 +1,6 @@
 package com.audiencia_virtual_bff.BffAudienciaService;
 
+import com.audiencia_virtual_bff.BffAudienciaController.dto.AudienciaRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.util.Map;
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -63,7 +65,13 @@ class BffAudienciaServiceTest {
         ExchangeFunction exchangeFunction = mockExchange(HttpStatus.CREATED, "{\"id\":8}");
         BffAudienciaService service = service(exchangeFunction);
 
-        StepVerifier.create(service.criarAudiencia(Map.of("nome", "Nova audiencia"), new HttpHeaders()))
+        AudienciaRequest request = new AudienciaRequest(
+                1L,
+                "maria.silva@exemplo.com",
+                LocalDateTime.of(2026, 10, 10, 14, 0),
+                "Microsoft Teams");
+
+        StepVerifier.create(service.criarAudiencia(request, new HttpHeaders()))
                 .assertNext(result -> assertThat(result).isInstanceOf(Map.class))
                 .verifyComplete();
     }

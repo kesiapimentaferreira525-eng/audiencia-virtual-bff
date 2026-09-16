@@ -1,6 +1,8 @@
 package com.audiencia_virtual_bff.BffAudienciaController;
 
 import com.audiencia_virtual_bff.BffAudienciaService.BffAudienciaService;
+import com.audiencia_virtual_bff.BffAudienciaController.dto.AudienciaRequest;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +32,9 @@ public class BffAudienciaController {
     }
 
     @PostMapping
-    public Mono<ResponseEntity<Object>> criar(@RequestBody Object payload, @RequestHeader HttpHeaders headers) {
+    public Mono<ResponseEntity<Object>> criar(
+            @Valid @RequestBody AudienciaRequest payload,
+            @RequestHeader HttpHeaders headers) {
         return service.criarAudiencia(payload, headers)
                 .map(response -> ResponseEntity.status(HttpStatus.CREATED).body(response));
     }

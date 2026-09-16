@@ -1,5 +1,6 @@
 package com.audiencia_virtual_bff.BffAudienciaService;
 
+import com.audiencia_virtual_bff.BffAudienciaController.dto.AudienciaRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -39,7 +40,7 @@ public class BffAudienciaService {
                 .bodyToMono(Object.class);
     }
 
-    public Mono<Object> criarAudiencia(Object payload, HttpHeaders incomingHeaders) {
+    public Mono<Object> criarAudiencia(AudienciaRequest payload, HttpHeaders incomingHeaders) {
         return audienciaWebClient.post()
                 .uri("/v1/audiencias-virtuais")
                 .headers(headers -> copyRelevantHeaders(incomingHeaders, headers))
