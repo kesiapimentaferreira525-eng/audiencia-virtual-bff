@@ -7,9 +7,11 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public record AudienciaRequest(
-        @NotNull Long agendaId,
-        @NotBlank @Email String email,
-        @NotNull LocalDateTime dataAudiencia,
-        @NotBlank String siteAgendamento
-) {
+                @NotBlank String agendaNome,
+                @NotBlank String parteNome,
+                @NotBlank String parteCpf,
+                @NotBlank String parteNumeroProcesso,
+                @NotBlank @Email String email,
+                @NotNull LocalDateTime dataAudiencia,
+                @NotBlank String siteAgendamento) {
 }

@@ -65,7 +65,10 @@ class BffAudienciaControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue("""
                         {
-                          "agendaId": 1,
+                          "agendaNome": "Agenda - Carlos Oliveira",
+                          "parteNome": "Carlos Oliveira",
+                          "parteCpf": "12345678901",
+                          "parteNumeroProcesso": "0000001-00.2026.8.05.0001",
                           "email": "maria.silva@exemplo.com",
                           "dataAudiencia": "2026-10-10T14:00:00",
                           "siteAgendamento": "Microsoft Teams"
