@@ -64,4 +64,16 @@ public class BffAudienciaController {
         return service.buscarPorNome(nome, headers)
                 .map(ResponseEntity::ok);
     }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Excluir audiência virtual")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Audiência excluída"),
+            @ApiResponse(responseCode = "404", description = "Audiência não encontrada"),
+            @ApiResponse(responseCode = "503", description = "Backend indisponível")
+    })
+    public Mono<ResponseEntity<Void>> excluir(@PathVariable Long id, @RequestHeader HttpHeaders headers) {
+        return service.excluir(id, headers)
+                .thenReturn(ResponseEntity.noContent().build());
+    }
 }

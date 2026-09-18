@@ -1,3 +1,5 @@
+| `DELETE` | `/api/v1/bff/audiencias/{id}` |
+
 # BFF Gateway — Audiência Virtual
 
 ## Execução

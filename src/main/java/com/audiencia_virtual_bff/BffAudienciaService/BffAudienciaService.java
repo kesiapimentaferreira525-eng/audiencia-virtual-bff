@@ -21,10 +21,9 @@ public class BffAudienciaService {
                 .uri("/v1/audiencias-virtuais")
                 .headers(headers -> copyRelevantHeaders(incomingHeaders, headers))
                 .retrieve()
-                .onStatus(status -> status.isError(), response ->
-                        response.bodyToMono(String.class)
-                                .flatMap(errorBody -> Mono.error(new ResponseStatusException(response.statusCode(), errorBody)))
-                )
+                .onStatus(status -> status.isError(), response -> response.bodyToMono(String.class)
+                        .flatMap(
+                                errorBody -> Mono.error(new ResponseStatusException(response.statusCode(), errorBody))))
                 .bodyToMono(Object.class);
     }
 
@@ -33,10 +32,9 @@ public class BffAudienciaService {
                 .uri("/v1/audiencias-virtuais/{id}", id)
                 .headers(headers -> copyRelevantHeaders(incomingHeaders, headers))
                 .retrieve()
-                .onStatus(status -> status.isError(), response ->
-                        response.bodyToMono(String.class)
-                                .flatMap(errorBody -> Mono.error(new ResponseStatusException(response.statusCode(), errorBody)))
-                )
+                .onStatus(status -> status.isError(), response -> response.bodyToMono(String.class)
+                        .flatMap(
+                                errorBody -> Mono.error(new ResponseStatusException(response.statusCode(), errorBody))))
                 .bodyToMono(Object.class);
     }
 
@@ -46,10 +44,9 @@ public class BffAudienciaService {
                 .headers(headers -> copyRelevantHeaders(incomingHeaders, headers))
                 .bodyValue(payload)
                 .retrieve()
-                .onStatus(status -> status.isError(), response ->
-                        response.bodyToMono(String.class)
-                                .flatMap(errorBody -> Mono.error(new ResponseStatusException(response.statusCode(), errorBody)))
-                )
+                .onStatus(status -> status.isError(), response -> response.bodyToMono(String.class)
+                        .flatMap(
+                                errorBody -> Mono.error(new ResponseStatusException(response.statusCode(), errorBody))))
                 .bodyToMono(Object.class);
     }
 
@@ -60,11 +57,21 @@ public class BffAudienciaService {
                         .build())
                 .headers(headers -> copyRelevantHeaders(incomingHeaders, headers))
                 .retrieve()
-                .onStatus(status -> status.isError(), response ->
-                        response.bodyToMono(String.class)
-                                .flatMap(errorBody -> Mono.error(new ResponseStatusException(response.statusCode(), errorBody)))
-                )
+                .onStatus(status -> status.isError(), response -> response.bodyToMono(String.class)
+                        .flatMap(
+                                errorBody -> Mono.error(new ResponseStatusException(response.statusCode(), errorBody))))
                 .bodyToMono(Object.class);
+    }
+
+    public Mono<Void> excluir(Long id, HttpHeaders incomingHeaders) {
+        return audienciaWebClient.delete()
+                .uri("/v1/audiencias-virtuais/{id}", id)
+                .headers(headers -> copyRelevantHeaders(incomingHeaders, headers))
+                .retrieve()
+                .onStatus(status -> status.isError(), response -> response.bodyToMono(String.class)
+                        .flatMap(
+                                errorBody -> Mono.error(new ResponseStatusException(response.statusCode(), errorBody))))
+                .bodyToMono(Void.class);
     }
 
     private void copyRelevantHeaders(HttpHeaders sourceHeaders, HttpHeaders targetHeaders) {
